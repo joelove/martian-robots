@@ -5,6 +5,7 @@ export type Instruction = "F" | "L" | "R";
 export type InstructionString = string;
 export type XCoord = number;
 export type YCoord = number;
+export type IsLost = boolean;
 export type Coordinates = [XCoord, YCoord];
 export type WorldSize = [XCoord, YCoord];
 export type Position = [XCoord, YCoord, Direction];
@@ -42,17 +43,24 @@ const InstructionApplicators: Record<Instruction, ApplicatorFunction> = {
   R: applyRight,
 } as const;
 
-export const applyInstruction = (
-  currentPosition: Position,
+export const applyInstruction = ([maxX, maxY]: WorldSize) => (
+  [currentPosition, isLost]: [Position, IsLost],
   instruction: Instruction
-): Position => InstructionApplicators[instruction](currentPosition);
+): [Position, IsLost] => {
+  const [x, y, d] = InstructionApplicators[instruction](currentPosition);
+
+  return [[x, y, d], isLost || x > maxX || y > maxY];
+};
 
 export default (
-  worldsize: WorldSize,
+  worldSize: WorldSize,
   startingPosition: Position,
   instructionString: InstructionString
-): Position => {
+): [Position, IsLost] => {
   let instructions = instructionString.split("") as Instruction[];
 
-  return instructions.reduce(applyInstruction, startingPosition);
+  return instructions.reduce(applyInstruction(worldSize), [
+    startingPosition,
+    false,
+  ]);
 };
