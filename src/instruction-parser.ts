@@ -9,4 +9,4 @@ export default (
   worldsize: WorldSize,
   startingPosition: Postition,
   instruction: Instruction
-) => true;
+) => [1, 1, "E"];
