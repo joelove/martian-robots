@@ -36,13 +36,13 @@ export const applyRight: ApplicatorFunction = ([x, y, d]) => {
   return [x, y, newDirection];
 };
 
-export const InstructionApplicators: Record<Instruction, ApplicatorFunction> = {
+const InstructionApplicators: Record<Instruction, ApplicatorFunction> = {
   F: applyForward,
   L: applyLeft,
   R: applyRight,
 } as const;
 
-const applyInstruction = (
+export const applyInstruction = (
   currentPosition: Position,
   instruction: Instruction
 ): Position => InstructionApplicators[instruction](currentPosition);

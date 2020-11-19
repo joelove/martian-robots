@@ -35,7 +35,7 @@ describe("Instruction Parser", () => {
 
     describe("when the starting position is 3 2 N and the instruction is FRRFLLFFRRFLL", () => {
       beforeEach(() => {
-        startingPosition = [3, 2, "E"];
+        startingPosition = [3, 2, "N"];
         instructionString = "FRRFLLFFRRFLL";
       });
 
@@ -43,6 +43,19 @@ describe("Instruction Parser", () => {
         expect(
           instructionParser(worldSize, startingPosition, instructionString)
         ).toEqual([3, 3, "N"]);
+      });
+    });
+
+    describe("when the starting position is 0 3 W and the instruction is LLFFFLFLFL", () => {
+      beforeEach(() => {
+        startingPosition = [0, 3, "W"];
+        instructionString = "LLFFFLFLFL";
+      });
+
+      it("returns the expected output of 2 4 S", () => {
+        expect(
+          instructionParser(worldSize, startingPosition, instructionString)
+        ).toEqual([2, 4, "S"]);
       });
     });
   });
