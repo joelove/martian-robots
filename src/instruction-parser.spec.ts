@@ -29,7 +29,7 @@ describe("Instruction Parser", () => {
       it("returns the expected output of 1 1 E", () => {
         expect(
           instructionParser(worldSize, startingPosition, instructionString)
-        ).toEqual([1, 1, "E"]);
+        ).toEqual([[1, 1, "E"], false]);
       });
     });
 
@@ -42,7 +42,7 @@ describe("Instruction Parser", () => {
       it("returns the expected output of 3 3 N", () => {
         expect(
           instructionParser(worldSize, startingPosition, instructionString)
-        ).toEqual([3, 3, "N"]);
+        ).toEqual([[3, 3, "N"], true]);
       });
     });
 
@@ -55,7 +55,7 @@ describe("Instruction Parser", () => {
       it("returns the expected output of 2 4 S", () => {
         expect(
           instructionParser(worldSize, startingPosition, instructionString)
-        ).toEqual([2, 4, "S"]);
+        ).toEqual([[2, 4, "S"], true]);
       });
     });
   });
