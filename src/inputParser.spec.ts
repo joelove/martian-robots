@@ -4,6 +4,7 @@ import parse, {
   coordinateParser,
   coordinatesParser,
   directionParser,
+  instructionParser,
 } from "./inputParser";
 
 describe("Input Parser", () => {
@@ -201,6 +202,80 @@ describe("Input Parser", () => {
     describe("when the input is a random string", () => {
       beforeEach(() => {
         result = parse(directionParser, "aaa");
+      });
+
+      it("exits the process", () => {
+        expect(exitMock).toHaveBeenCalledWith(0);
+      });
+    });
+  });
+
+  describe("Instruction Parser", () => {
+    describe("when the input is F", () => {
+      beforeEach(() => {
+        result = parse(instructionParser, "F");
+      });
+
+      it("returns the instruction", () => {
+        expect(result).toEqual("F");
+      });
+
+      it("does not exit the process", () => {
+        expect(exitMock).not.toHaveBeenCalled();
+      });
+    });
+
+    describe("when the input is L", () => {
+      beforeEach(() => {
+        result = parse(instructionParser, "L");
+      });
+
+      it("returns the instruction", () => {
+        expect(result).toEqual("L");
+      });
+
+      it("does not exit the process", () => {
+        expect(exitMock).not.toHaveBeenCalled();
+      });
+    });
+
+    describe("when the input is R", () => {
+      beforeEach(() => {
+        result = parse(instructionParser, "R");
+      });
+
+      it("returns the instruction", () => {
+        expect(result).toEqual("R");
+      });
+
+      it("does not exit the process", () => {
+        expect(exitMock).not.toHaveBeenCalled();
+      });
+    });
+
+    describe("when the input is a number", () => {
+      beforeEach(() => {
+        result = parse(instructionParser, "2");
+      });
+
+      it("exits the process", () => {
+        expect(exitMock).toHaveBeenCalledWith(0);
+      });
+    });
+
+    describe("when the input is a non-matching letter", () => {
+      beforeEach(() => {
+        result = parse(instructionParser, "Z");
+      });
+
+      it("exits the process", () => {
+        expect(exitMock).toHaveBeenCalledWith(0);
+      });
+    });
+
+    describe("when the input is a random string", () => {
+      beforeEach(() => {
+        result = parse(instructionParser, "aaa");
       });
 
       it("exits the process", () => {
