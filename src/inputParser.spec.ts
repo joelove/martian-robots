@@ -1,9 +1,13 @@
 import { mockProcessExit } from "jest-mock-process";
 
-import parse, { coordinateParser, coordinatesParser } from "./inputParser";
+import parse, {
+  coordinateParser,
+  coordinatesParser,
+  directionParser,
+} from "./inputParser";
 
 describe("Input Parser", () => {
-  let result;
+  let result: unknown;
 
   let exitMock: jest.SpyInstance<typeof process.exit>;
 
@@ -16,50 +20,57 @@ describe("Input Parser", () => {
   });
 
   describe("Coordinate Parser", () => {
-    let coordinate: string;
-
     describe("when the coordinate is a valid number", () => {
       beforeEach(() => {
-        coordinate = "2";
+        result = parse(coordinateParser, "2");
       });
 
-      it("returns the expected integer", () => {
-        expect(parse(coordinateParser, coordinate)).toEqual(2);
+      it("returns the expected coordinate", () => {
+        expect(result).toEqual(2);
+      });
+
+      it("does not exit the process", () => {
+        expect(exitMock).not.toHaveBeenCalled();
       });
     });
 
     describe("when the coordinate is a float", () => {
       beforeEach(() => {
-        coordinate = "2.3";
+        result = parse(coordinateParser, "2.6");
       });
 
-      it("returns the nearest integer", () => {
-        expect(parse(coordinateParser, coordinate)).toEqual(2);
+      it("returns the floor", () => {
+        expect(result).toEqual(2);
+      });
+
+      it("does not exit the process", () => {
+        expect(exitMock).not.toHaveBeenCalled();
       });
     });
 
     describe("when the coordinate is a string", () => {
       beforeEach(() => {
-        coordinate = "aaa";
+        result = parse(coordinateParser, "aaa");
       });
 
       it("exits the process", () => {
-        parse(coordinateParser, coordinate);
         expect(exitMock).toHaveBeenCalledWith(0);
       });
     });
   });
 
   describe("Coordinates Parser", () => {
-    let coordinates: string;
-
     describe("when the input is valid space-delimited coordinates", () => {
       beforeEach(() => {
-        coordinates = "2 2";
+        result = parse(coordinatesParser, "2 2");
       });
 
       it("returns the expected coordinates", () => {
-        expect(parse(coordinatesParser, coordinates)).toEqual([2, 2]);
+        expect(result).toEqual([2, 2]);
+      });
+
+      it("does not exit the process", () => {
+        expect(exitMock).not.toHaveBeenCalled();
       });
     });
 
@@ -85,15 +96,17 @@ describe("Input Parser", () => {
   });
 
   describe("Coordinates Parser", () => {
-    let coordinates: string;
-
     describe("when the input is valid space-delimited coordinates", () => {
       beforeEach(() => {
-        coordinates = "2 2";
+        result = parse(coordinatesParser, "2 2");
       });
 
       it("returns the expected coordinates", () => {
-        expect(parse(coordinatesParser, coordinates)).toEqual([2, 2]);
+        expect(result).toEqual([2, 2]);
+      });
+
+      it("does not exit the process", () => {
+        expect(exitMock).not.toHaveBeenCalled();
       });
     });
 
@@ -110,6 +123,84 @@ describe("Input Parser", () => {
     describe("when the input is a space-delimited string with too many members", () => {
       beforeEach(() => {
         result = parse(coordinatesParser, "2 2 2");
+      });
+
+      it("exits the process", () => {
+        expect(exitMock).toHaveBeenCalledWith(0);
+      });
+    });
+  });
+
+  describe("Direction Parser", () => {
+    describe("when the input is N", () => {
+      beforeEach(() => {
+        result = parse(directionParser, "N");
+      });
+
+      it("returns the direction", () => {
+        expect(result).toEqual("N");
+      });
+
+      it("does not exit the process", () => {
+        expect(exitMock).not.toHaveBeenCalled();
+      });
+    });
+
+    describe("when the input is E", () => {
+      beforeEach(() => {
+        result = parse(directionParser, "E");
+      });
+
+      it("returns the direction", () => {
+        expect(result).toEqual("E");
+      });
+
+      it("does not exit the process", () => {
+        expect(exitMock).not.toHaveBeenCalled();
+      });
+    });
+
+    describe("when the input is S", () => {
+      beforeEach(() => {
+        result = parse(directionParser, "S");
+      });
+
+      it("returns the direction", () => {
+        expect(result).toEqual("S");
+      });
+
+      it("does not exit the process", () => {
+        expect(exitMock).not.toHaveBeenCalled();
+      });
+    });
+
+    describe("when the input is W", () => {
+      beforeEach(() => {
+        result = parse(directionParser, "W");
+      });
+
+      it("returns the direction", () => {
+        expect(result).toEqual("W");
+      });
+
+      it("does not exit the process", () => {
+        expect(exitMock).not.toHaveBeenCalled();
+      });
+    });
+
+    describe("when the input is a number", () => {
+      beforeEach(() => {
+        result = parse(directionParser, "2");
+      });
+
+      it("exits the process", () => {
+        expect(exitMock).toHaveBeenCalledWith(0);
+      });
+    });
+
+    describe("when the input is a random string", () => {
+      beforeEach(() => {
+        result = parse(directionParser, "aaa");
       });
 
       it("exits the process", () => {
