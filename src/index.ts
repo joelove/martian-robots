@@ -1,11 +1,8 @@
 import readline from "readline";
 
 import instructionApplicator, {
-  Coordinate,
-  Coordinates,
   Position,
   WorldSize,
-  Direction,
   Instruction,
   IsLost,
 } from "./instructionApplicator";

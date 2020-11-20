@@ -1,5 +1,5 @@
 import { parse, coordinateParser, directionParser } from "../inputParser";
-import { Position, Direction, Coordinate } from "../instructionApplicator";
+import { Position } from "../instructionApplicator";
 
 const parsePosition = <Position>(input: string) => {
   const position = input.trim().split(" ");

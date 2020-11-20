@@ -1,11 +1,3 @@
-import {
-  Coordinate,
-  Coordinates,
-  Direction,
-  Instruction,
-  Position,
-} from "./instructionApplicator";
-
 import parseCoordinate from "./parsers/parseCoordinate";
 import parseCoordinates from "./parsers/parseCoordinates";
 import parseDirection from "./parsers/parseDirection";
