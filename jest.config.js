@@ -11,6 +11,5 @@ module.exports = {
       statements: 85,
     },
   },
-  reporters: [],
   coverageReporters: ["json", "lcov", "text"],
 };
