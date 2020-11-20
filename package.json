@@ -8,8 +8,8 @@
     "build": "rimraf ./build && tsc",
     "start": "npm run build && node ./build/index.js",
     "dev": "nodemon",
-    "test": "jest --coverage",
-    "test:watch": "jest --coverage --watchAll",
+    "test": "jest --coverage --runInBand",
+    "test:watch": "jest --coverage --watchAll --runInBand",
     "coverage": "serve coverage/lcov-report"
   },
   "keywords": [],
