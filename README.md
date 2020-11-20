@@ -1,6 +1,6 @@
 # Martian Robots
 
-##### A lightweight CLI to control a martian robot hoarde, built using Node.js and TypeScript.
+##### A lightweight CLI to control a martian robot horde, built using Node.js and TypeScript
 
 ---
 
