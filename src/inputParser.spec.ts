@@ -6,6 +6,7 @@ import parse, {
   directionParser,
   instructionParser,
   instructionsParser,
+  positionParser,
 } from "./inputParser";
 
 describe("Input Parser", () => {
@@ -18,6 +19,8 @@ describe("Input Parser", () => {
   });
 
   afterEach(() => {
+    exitMock.mockClear();
+
     result = null;
   });
 
@@ -299,6 +302,7 @@ describe("Input Parser", () => {
         expect(exitMock).not.toHaveBeenCalled();
       });
     });
+
     describe("when the input is blank", () => {
       beforeEach(() => {
         result = parse(instructionsParser, "");
@@ -326,6 +330,62 @@ describe("Input Parser", () => {
     describe("when the input is blank", () => {
       beforeEach(() => {
         result = parse(instructionsParser, "FRFF RFFLL");
+      });
+
+      it("exits the process", () => {
+        expect(exitMock).toHaveBeenCalledWith(0);
+      });
+    });
+  });
+
+  describe("Position Parser", () => {
+    describe("when the input is a valid position", () => {
+      beforeEach(() => {
+        result = parse(positionParser, "3 3 N");
+      });
+
+      it("returns the correct position", () => {
+        expect(result).toEqual([3, 3, "N"]);
+      });
+
+      it("does not exit the process", () => {
+        expect(exitMock).not.toHaveBeenCalled();
+      });
+    });
+
+    describe("when a coordinate is invalid", () => {
+      beforeEach(() => {
+        result = parse(positionParser, ". 3 N");
+      });
+
+      it("exits the process", () => {
+        expect(exitMock).toHaveBeenCalledWith(0);
+      });
+    });
+
+    describe("when the direction is invalid", () => {
+      beforeEach(() => {
+        result = parse(positionParser, "3 3 Z");
+      });
+
+      it("exits the process", () => {
+        expect(exitMock).toHaveBeenCalledWith(0);
+      });
+    });
+
+    describe("when there are two many items", () => {
+      beforeEach(() => {
+        result = parse(positionParser, "3 3 N Z");
+      });
+
+      it("exits the process", () => {
+        expect(exitMock).toHaveBeenCalledWith(0);
+      });
+    });
+
+    describe("when there are two few items", () => {
+      beforeEach(() => {
+        result = parse(positionParser, "3 3");
       });
 
       it("exits the process", () => {
