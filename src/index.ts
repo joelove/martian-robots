@@ -16,12 +16,12 @@ import parse, {
   coordinatesParser,
 } from "./inputParser";
 
-const rl = readline.createInterface({
+export const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout,
 });
 
-const askQuestion = async <T>(
+export const askQuestion = async <T>(
   question: string,
   read: (input: string) => unknown
 ): Promise<T> =>
@@ -31,29 +31,29 @@ const askQuestion = async <T>(
     })
   );
 
-const printOutcome = (position: Position, isLost: IsLost) => {
+export const printOutcome = (position: Position, isLost: IsLost) => {
   console.log(position.join(" "), isLost ? "LOST" : "");
 };
 
-const readRobotInstructions = async (): Promise<Instruction[]> =>
+export const readRobotInstructions = async (): Promise<Instruction[]> =>
   askQuestion(
     'Enter robot instructions (e.g. "RFLFFRFLF"): ',
     (instructionsInput) => parse(instructionsParser, instructionsInput)
   );
 
-const readRobotPosition = async (): Promise<Position> =>
+export const readRobotPosition = async (): Promise<Position> =>
   askQuestion(
     'Enter space-delimited starting position (e.g. "1 1 E"): ',
     (positionInput) => parse(positionParser, positionInput)
   );
 
-const readWorldSize = async (): Promise<WorldSize> =>
+export const readWorldSize = async (): Promise<WorldSize> =>
   askQuestion(
     'Enter space-delimited world size (e.g. "3 5"): ',
     (worldSizeInput) => parse(coordinatesParser, worldSizeInput)
   );
 
-const readRobotInformation = async (worldSize: WorldSize) => {
+export const readRobotInformation = async (worldSize: WorldSize) => {
   const startingPosition = await readRobotPosition();
   const instructions = await readRobotInstructions();
 
@@ -73,8 +73,8 @@ export const start = async () => {
   readRobotInformation(worldSize);
 };
 
+export default start;
+
 if (process.env.NODE_ENV !== "test") {
   start();
 }
-
-export default start;
