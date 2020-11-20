@@ -1,22 +1,20 @@
-import {
-  mockProcessExit,
-  mockProcessStdout,
-  mockConsoleLog,
-} from "jest-mock-process";
+import { mockProcessStdout } from "jest-mock-process";
 
 import start from "./index";
 
-const stdoutMock = mockProcessStdout();
+describe("Index", () => {
+  describe("CLI", () => {
+    let stdoutMock: jest.SpyInstance<boolean>;
 
-// process.stdin.write("foo");
+    beforeEach(() => {
+      stdoutMock = mockProcessStdout();
 
-describe("CLI", () => {
-  beforeEach(() => {
-    start();
+      start();
+    });
+
+    it("asks for the world size", async () =>
+      expect(stdoutMock).toHaveBeenCalledWith(
+        'Enter space-delimited world size (e.g. "3 5"): '
+      ));
   });
-
-  it("asks for the world size", async () =>
-    expect(stdoutMock).toHaveBeenCalledWith(
-      'Enter space-delimited world size (e.g. "3 5"): '
-    ));
 });
