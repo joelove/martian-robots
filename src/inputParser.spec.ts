@@ -5,6 +5,7 @@ import parse, {
   coordinatesParser,
   directionParser,
   instructionParser,
+  instructionsParser,
 } from "./inputParser";
 
 describe("Input Parser", () => {
@@ -276,6 +277,55 @@ describe("Input Parser", () => {
     describe("when the input is a random string", () => {
       beforeEach(() => {
         result = parse(instructionParser, "aaa");
+      });
+
+      it("exits the process", () => {
+        expect(exitMock).toHaveBeenCalledWith(0);
+      });
+    });
+  });
+
+  describe("Instructions Parser", () => {
+    describe("when the input is a valid instructions string", () => {
+      beforeEach(() => {
+        result = parse(instructionsParser, "FRFFRFFLL");
+      });
+
+      it("returns the correct instructions list", () => {
+        expect(result).toEqual(["F", "R", "F", "F", "R", "F", "F", "L", "L"]);
+      });
+
+      it("does not exit the process", () => {
+        expect(exitMock).not.toHaveBeenCalled();
+      });
+    });
+    describe("when the input is blank", () => {
+      beforeEach(() => {
+        result = parse(instructionsParser, "");
+      });
+
+      it("returns an empty instructions list", () => {
+        expect(result).toEqual([]);
+      });
+
+      it("does not exit the process", () => {
+        expect(exitMock).not.toHaveBeenCalled();
+      });
+    });
+
+    describe("when the input is blank instruction", () => {
+      beforeEach(() => {
+        result = parse(instructionsParser, "FRFFZFFLL");
+      });
+
+      it("exits the process", () => {
+        expect(exitMock).toHaveBeenCalledWith(0);
+      });
+    });
+
+    describe("when the input is blank", () => {
+      beforeEach(() => {
+        result = parse(instructionsParser, "FRFF RFFLL");
       });
 
       it("exits the process", () => {
