@@ -22,9 +22,11 @@ One that's out of the way, you can run the CLI with:
 npm start
 ```
 
+> _**Note:** The CLI has been manually tested on Node 14 and 15. It will probably work on any reasonably new version but if you have problems running it, try checking your version._
+
 ### Testing
 
-This CLI is tested using [Jest](https://jestjs.io/). You can run the tests using:
+Automated testing of this CLI uses [Jest](https://jestjs.io/). You can run the tests using:
 
 ```shell
 npm run test

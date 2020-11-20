@@ -2,8 +2,11 @@
   "name": "martian-robots",
   "version": "1.0.0",
   "description": "A lightweight CLI to control a martian robot horde, built using Node.js and TypeScript",
-  "main": "index.js",
+  "main": "build/index.js",
   "private": true,
+  "engines" : {
+    "node" : ">=14 <16"
+  },
   "scripts": {
     "build": "rimraf ./build && tsc",
     "start": "npm run build && node ./build/index.js",
@@ -13,7 +16,7 @@
     "coverage": "serve coverage/lcov-report"
   },
   "keywords": [],
-  "author": "",
+  "author": "Joe Love",
   "license": "ISC",
   "devDependencies": {
     "@types/jest": "^26.0.15",
