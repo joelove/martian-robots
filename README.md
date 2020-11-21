@@ -16,7 +16,7 @@ The CLI uses [NPM](https://www.npmjs.com/) to handle dependencies. To install ev
 npm install
 ```
 
-One that's out of the way, you can run the CLI with:
+Once that's out of the way, you can run the CLI with:
 
 ```shell
 npm start
