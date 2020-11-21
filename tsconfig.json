@@ -14,7 +14,7 @@
     "forceConsistentCasingInFileNames":true
   },
   "exclude":[
-    "jest.config.js",
+    "jest.config.ts",
     "coverage/**/*",
     "build/**/*"
   ]
